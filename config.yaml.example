@@ -1,0 +1,96 @@
+# Job Search Agents — Configuration
+# ===================================
+# Copy this file to config.yaml and fill in your details.
+# Skills guide you through first-run setup automatically, or fill this in manually.
+#
+# Place your resume DOCX file(s) in the baseresume/ folder (next to this file).
+#
+# Skills and the fields they use:
+#   - job-analyzer:   user, resume, achievements, skills, preferences
+#   - job-crawler:    user, resume, skills, preferences
+#   - resume-tailor:  user, resume, output
+
+user:
+  name: ""                      # Full name (e.g. "Alex Smith")
+  email: ""                     # Primary email for applications
+  phone: ""                     # Phone number (e.g. "+61 4XX XXX XXX")
+  location: ""                  # City and state (e.g. "Sydney, NSW")
+  linkedin_url: ""              # Full LinkedIn profile URL
+  github_url: ""                # Full GitHub profile URL (optional)
+  portfolio_url: ""             # Portfolio or personal site (optional)
+
+  # Australian work rights — used in cover letters and compatibility assessments.
+  # e.g. "Australian citizen", "Permanent resident", "485 Graduate Visa",
+  #      "482 TSS Visa (sponsored)", "NZ citizen"
+  work_rights: ""
+
+resume:
+  # Resume DOCX files live in the baseresume/ folder next to config.yaml.
+  # If you have multiple variants, each is a separate DOCX file in that folder.
+  # Skills will pick the best-matching file automatically.
+
+  # Names of your resume variants — must match filenames (without .docx extension).
+  # The first entry is treated as the default.
+  # e.g. ["backend_engineer", "fullstack_engineer", "tech_lead"]
+  variants: []
+
+  # 2–3 sentence summary of your background.
+  # Used by job-crawler for quick role matching without reading the full resume.
+  # e.g. "Senior backend engineer with 8 years experience, most recently at Canva on the
+  #        data platform team. Deep expertise in Python, distributed systems, and AWS.
+  #        Previously built payment infrastructure processing AUD 500M+ annually."
+  profile_summary: ""
+
+achievements:
+  # Google Doc ID for a detailed brag doc / achievement history (optional).
+  # This is the part after /d/ in a Google Docs URL.
+  # job-analyzer uses this to suggest specific resume bullet swaps with real data.
+  google_doc_id: ""
+
+skills:
+  # Your transferable skill domains — used by job-crawler to match against roles.
+  # Be specific: include technologies, problem domains, and methodologies.
+  # e.g.:
+  #   - "Backend engineering (Python, Go, Java)"
+  #   - "Cloud infrastructure (AWS, GCP, Azure)"
+  #   - "Data pipelines and streaming (Kafka, Spark)"
+  #   - "CI/CD and developer tooling"
+  #   - "Databases (PostgreSQL, Redis, DynamoDB)"
+  domains: []
+
+preferences:
+  # Experience level: "junior", "mid", "senior", "staff", "principal"
+  level: "senior"
+  years_experience: 0
+
+  # Location preferences.
+  # e.g. "Sydney, NSW" | "Melbourne, VIC" | "Remote (Australia)" | "Australia-wide"
+  location_preference: "Australia"
+
+  # Set to true to exclude roles not open to Australian-based employees.
+  au_only: true
+
+  # Set to true if open to fully remote roles.
+  remote_ok: true
+
+  # Keywords that hard-disqualify a role (case-insensitive).
+  # e.g. ["NV1 clearance", "NV2 clearance", "defence industry"]
+  exclude_keywords: []
+
+  # Primary specialty — used for ranking when similar roles exist.
+  # e.g. "backend", "fullstack", "iOS", "Android", "ML", "data engineering",
+  #      "DevOps", "platform", "frontend", "SRE", "security"
+  primary_specialty: ""
+
+  # Secondary specialties — acceptable but ranked lower than primary.
+  secondary_specialties: []
+
+  # Notice period / availability.
+  # e.g. "Immediately", "2 weeks notice", "1 month notice", "3 months notice"
+  availability: "2 weeks notice"
+
+output:
+  # Where resume-tailor saves tailored resumes and cover letters.
+  # Each application gets its own subfolder: {dir}/{date}_{company}_{role}/
+  # e.g. "~/job-applications"
+  dir: "~/job-applications"
