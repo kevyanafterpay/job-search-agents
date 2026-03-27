@@ -9,7 +9,7 @@ tailored application documents — all grounded in your real experience, never f
 |-------|-------------|
 | **job-analyzer** | Analyzes a job posting against your resume. Gives targeted resume suggestions, a concise intro email, company research, and an honest fit assessment. Handles SEEK and LinkedIn URLs natively. |
 | **job-crawler** | Crawls a company's careers page, SEEK profile, or LinkedIn jobs page. Finds the top 3 roles you're most qualified for and scores each one. |
-| **resume-tailor** | Reads your DOCX resume, identifies gaps, asks you about them, then produces a tailored resume and cover letter — without making anything up. |
+| **resume-tailor** | Reads your DOCX or PDF resume, identifies gaps, asks you about them, then produces a tailored resume and cover letter — without making anything up. |
 
 ## Quick Start
 
@@ -25,10 +25,13 @@ cp -r job-search-agents/resume-tailor ~/.claude/skills/
 
 ```bash
 cp ~/Documents/my_resume.docx ~/.claude/skills/baseresume/
+# or PDF:
+cp ~/Documents/my_resume.pdf ~/.claude/skills/baseresume/
 ```
 
 That's it. If you have multiple resume variants (e.g. one for backend roles, one for fullstack),
-add each as a separate DOCX — skills pick the best match automatically.
+add each as a separate file — skills pick the best match automatically. Both DOCX and PDF are
+supported; you can mix formats in the same folder.
 
 ### 3. (Optional) Configure preferences
 
@@ -52,7 +55,7 @@ Talk to Claude naturally:
 
 ```
 job-search-agents/
-  baseresume/          ← your DOCX resume file(s) go here
+  baseresume/          ← your resume file(s) go here (DOCX or PDF)
   config.yaml.example  ← copy to config.yaml and fill in
   job-analyzer/
     SKILL.md
@@ -68,6 +71,7 @@ job-search-agents/
 ## Requirements
 
 - Claude Code with browser tools enabled
-- Python 3 with `python-docx` for reading DOCX files (`pip3 install python-docx`)
+- Python 3 with `python-docx` for DOCX files (`pip3 install python-docx`)
+- Python 3 with `pdfplumber` for PDF files (`pip3 install pdfplumber`)
 - LinkedIn login in your browser (for job-crawler LinkedIn support)
 - Google Drive access (optional — only needed for the achievements brag doc in job-analyzer)
