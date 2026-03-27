@@ -31,7 +31,10 @@ If `config.yaml` exists one level above this skill folder, read `resume`, `skill
 
 Read the user's resume from the `baseresume/` folder (one level above this skill folder).
 
-Use Glob to list `.docx` files in `../baseresume/`. Extract text using Bash:
+Use Glob to list `.docx` and `.pdf` files in `../baseresume/`. Extract text using Bash,
+choosing the method based on file extension:
+
+**DOCX:**
 ```bash
 python3 -c "
 from docx import Document
@@ -45,6 +48,17 @@ print('\n'.join(parts))
 " 2>&1
 ```
 If `No module named 'docx'`, run `pip3 install python-docx` and retry.
+
+**PDF:**
+```bash
+python3 -c "
+import pdfplumber
+with pdfplumber.open('FILEPATH') as pdf:
+    text = '\n'.join(p.extract_text() or '' for p in pdf.pages)
+print(text)
+" 2>&1
+```
+If `No module named 'pdfplumber'`, run `pip3 install pdfplumber` and retry.
 
 From the extracted text, infer:
 - **Skill domains** — technologies, platforms, and problem areas present in the experience section

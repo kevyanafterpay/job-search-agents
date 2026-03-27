@@ -31,9 +31,11 @@ everything it needs directly from the DOCX resume in `baseresume/`.
 
 **Resume** — read from the `baseresume/` folder (one level above this skill folder).
 
-1. Use Glob to list all `.docx` files in `../baseresume/`.
-   If the folder is empty, tell the user to add their DOCX resume to the `baseresume/` folder.
-2. Extract text from each DOCX using Bash:
+1. Use Glob to list all `.docx` and `.pdf` files in `../baseresume/`.
+   If the folder is empty, tell the user to add their resume (DOCX or PDF) to the `baseresume/` folder.
+2. Extract text from each file using Bash. Choose the method based on file extension:
+
+   **DOCX:**
    ```bash
    python3 -c "
    from docx import Document
@@ -47,6 +49,17 @@ everything it needs directly from the DOCX resume in `baseresume/`.
    " 2>&1
    ```
    If `No module named 'docx'`, run `pip3 install python-docx` and retry.
+
+   **PDF:**
+   ```bash
+   python3 -c "
+   import pdfplumber
+   with pdfplumber.open('FILEPATH') as pdf:
+       text = '\n'.join(p.extract_text() or '' for p in pdf.pages)
+   print(text)
+   " 2>&1
+   ```
+   If `No module named 'pdfplumber'`, run `pip3 install pdfplumber` and retry.
 3. From the extracted text, read the contact header (name, email, LinkedIn, location) and any
    work rights statement. These are used in the intro email and compatibility assessment.
 

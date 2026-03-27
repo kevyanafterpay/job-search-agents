@@ -53,11 +53,13 @@ Record:
 
 ## Step 2: Read Resume from baseresume/
 
-1. Use Glob to list all `.docx` files in `../baseresume/` (one level above this skill folder).
-   If the folder is empty, tell the user: "Add your DOCX resume to the `baseresume/` folder
-   next to the skill folders, then try again."
+1. Use Glob to list all `.docx` and `.pdf` files in `../baseresume/` (one level above this skill
+   folder). If the folder is empty, tell the user: "Add your resume (DOCX or PDF) to the
+   `baseresume/` folder next to the skill folders, then try again."
 
-2. Extract text from each DOCX using Bash:
+2. Extract text from each file using Bash. Choose the method based on file extension:
+
+   **DOCX:**
    ```bash
    python3 -c "
    from docx import Document
@@ -71,6 +73,17 @@ Record:
    " 2>&1
    ```
    If `No module named 'docx'`, run `pip3 install python-docx` and retry once.
+
+   **PDF:**
+   ```bash
+   python3 -c "
+   import pdfplumber
+   with pdfplumber.open('FILEPATH') as pdf:
+       text = '\n'.join(p.extract_text() or '' for p in pdf.pages)
+   print(text)
+   " 2>&1
+   ```
+   If `No module named 'pdfplumber'`, run `pip3 install pdfplumber` and retry once.
    If extraction still fails, ask the user to save a `.txt` copy of the resume.
 
 3. From the extracted text, read the contact header to get name, email, phone, and location.
